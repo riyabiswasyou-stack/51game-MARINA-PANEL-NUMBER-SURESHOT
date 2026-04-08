@@ -8,89 +8,91 @@
         body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #000; font-family: 'Segoe UI', sans-serif; }
         iframe { width: 100%; height: 100%; border: none; position: absolute; z-index: 1; }
         
-        /* ছোট গোল বাটন যা কোণায় থাকবে */
-        #trigger { 
-            position: fixed; 
-            bottom: 20px; 
-            right: 20px; 
-            width: 60px; 
-            height: 60px; 
-            background: #f1c40f; 
-            border-radius: 50%; 
-            z-index: 9999; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 10px; 
-            font-weight: bold; 
-            color: #000; 
-            cursor: pointer; 
-            border: 2px solid #fff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        /* লক স্ক্রিন যা প্রথমে লুকানো থাকবে */
-        #lockOverlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.96); z-index: 10000; 
-            display: none; align-items: center; justify-content: center; 
-        }
-        .v-box { background: #0d1117; padding: 25px; border-radius: 20px; width: 80%; max-width: 300px; text-align: center; border: 1px solid #30363d; color: white; }
-        .btn-deposit { background: #f1c40f; color: #000; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
-        .btn-activate { background: #238636; color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; }
-        input { width: 90%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #333; background: #000; color: #fff; text-align: center; }
+        /* Prediction Panel */
+        #predictionPanel { position: fixed; top: 20px; right: 20px; width: 145px; background: linear-gradient(135deg, #1a0033 0%, #0d1117 100%); border: 2px solid #555; border-radius: 15px; padding: 12px; z-index: 9999; color: white; text-align: center; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border-top: 2px solid #58a6ff; }
         
-        /* প্রেডিকশন প্যানেল */
-        #predictionPanel { position: fixed; top: 20px; right: 20px; width: 140px; background: #0d1117; border: 2px solid #58a6ff; border-radius: 15px; padding: 10px; z-index: 9998; color: white; text-align: center; display: none; }
+        /* Lock Overlay */
+        #lockOverlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 10000; display: flex; align-items: center; justify-content: center; }
+        .v-box { background: #0d1117; padding: 30px; border-radius: 25px; width: 85%; max-width: 320px; text-align: center; border: 1px solid #30363d; }
+        
+        /* Buttons & Inputs */
+        .btn-deposit { background: #f1c40f; color: #000; border: none; padding: 14px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+        .btn-activate { background: #238636; color: white; border: none; padding: 14px; border-radius: 10px; width: 100%; font-weight: bold; cursor: pointer; }
+        input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: #fff; text-align: center; font-size: 16px; letter-spacing: 2px; box-sizing: border-box; }
+        
+        /* Floating Trigger Button */
+        #trigger { position: fixed; bottom: 30px; right: 20px; width: 70px; height: 70px; background: #f1c40f; border-radius: 50%; z-index: 999; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; color: #000; cursor: pointer; border: 2px solid #fff; text-align: center; box-shadow: 0 0 15px rgba(241, 196, 15, 0.5); }
+        
+        .telegram-link { color: #58a6ff; font-size: 14px; display: block; margin-top: 20px; text-decoration: none; font-weight: bold; border: 1px solid #58a6ff; padding: 8px; border-radius: 8px; }
+        .telegram-link:hover { background: rgba(88, 166, 255, 0.1); }
     </style>
 </head>
 <body>
 
     <iframe id="gameFrame" src="https://www.51gameq.com/#/register?invitationCode=82751100725"></iframe>
 
-    <div id="trigger" onclick="showLock()">HACK<br>MENU</div>
+    <div id="trigger" onclick="showLock()" style="display:none;">ACTIVATE<br>HACK</div>
 
     <div id="lockOverlay">
         <div class="v-box">
-            <h3 style="color: #f1c40f; margin-top:0;">HACK LOCKED</h3>
-            <p style="font-size: 12px; color: #8b949e;">First, complete 300 INR Deposit.</p>
-            <button class="btn-deposit" onclick="goDeposit()">1. GO TO DEPOSIT</button>
-            <input type="text" id="authKey" placeholder="Enter Secret Key">
+            <h2 style="color: #f1c40f; margin-bottom: 10px;">HACK LOCKED</h2>
+            <p style="color: #8b949e; font-size: 13px;">To unlock, deposit minimum <b>300 INR</b> and get your activation key.</p>
+            
+            <button class="btn-deposit" onclick="goDeposit()">1. GO TO DEPOSIT PAGE</button>
+            
+            <input type="text" id="authKey" placeholder="ENTER SECRET KEY">
+            
             <button class="btn-activate" onclick="checkAuth()">2. VERIFY & ACTIVATE</button>
-            <p onclick="closeLock()" style="font-size: 11px; color: #666; margin-top: 15px; cursor: pointer;">[ Close ]</p>
+
+            <a href="https://t.me/Marina_assistant_jaiclub" target="_blank" class="telegram-link">
+                📩 Contact Admin for Key
+            </a>
         </div>
     </div>
 
     <div id="predictionPanel">
-        <div style="font-size: 10px; color: #aaa;">MARINA SERVER</div>
-        <div id="timer" style="color: #ff7b72; font-size: 14px;">60s</div>
-        <hr style="border: 0.5px solid #333;">
-        <div id="resText" style="font-size: 35px; font-weight: 900;">-</div>
+        <div style="font-size: 10px; color: #aaa; letter-spacing: 1px;">MARINA SERVER</div>
+        <div id="timer" style="color: #ff7b72; font-size: 12px; font-weight: bold; margin-top: 5px;">00:60</div>
+        <hr style="border: 0.5px solid #333; margin: 10px 0;">
+        <div id="resText" style="font-size: 42px; font-weight: 900;">-</div>
     </div>
 
     <script>
-        function showLock() { document.getElementById('lockOverlay').style.display = 'flex'; }
-        function closeLock() { document.getElementById('lockOverlay').style.display = 'none'; }
-        function goDeposit() { 
-            document.getElementById('gameFrame').src = "https://www.51gameq.com/#/main/recharge"; 
-            closeLock(); 
+        function showLock() { 
+            document.getElementById('lockOverlay').style.display = 'flex'; 
         }
+
+        function goDeposit() { 
+            // Change iframe content to deposit page
+            document.getElementById('gameFrame').src = "https://www.51gameq.com/#/main/recharge"; 
+            document.getElementById('lockOverlay').style.display = 'none'; 
+            document.getElementById('trigger').style.display = 'flex'; 
+        }
+
         function checkAuth() {
-            if(document.getElementById('authKey').value === "3i00km") {
+            const userInput = document.getElementById('authKey').value;
+            // Your Secret Key is: 3i00km
+            if(userInput === "3i00km") {
                 document.getElementById('lockOverlay').style.display = 'none';
                 document.getElementById('trigger').style.display = 'none';
                 document.getElementById('predictionPanel').style.display = 'block';
                 startHack();
-            } else { alert("Wrong Key! Deposit first."); }
+            } else { 
+                alert("Invalid Secret Key! Please contact admin via Telegram."); 
+            }
         }
+
         function startHack() {
+            // Update prediction every second
             setInterval(() => {
-                let sec = 60 - new Date().getSeconds();
+                let now = new Date();
+                let sec = 60 - now.getSeconds();
                 document.getElementById('timer').innerText = `NEXT: ${sec}s`;
-                if(sec === 60 || sec === 0) {
-                    const res = ["BIG", "SMALL"][Math.floor(Math.random() * 2)];
+
+                // Update result at the start of each minute
+                if(sec === 60 || sec === 1) {
+                    const results = ["BIG", "SMALL"];
+                    const res = results[Math.floor(Math.random() * results.length)];
                     const div = document.getElementById('resText');
                     div.innerText = res;
                     div.style.color = (res === "BIG") ? "#f85149" : "#238636";
